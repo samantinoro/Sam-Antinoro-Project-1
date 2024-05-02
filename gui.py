@@ -25,6 +25,7 @@ class Gui:
         self.entry_numb = Entry(self.frame_numb, width=15)
         self.label_numb.pack(side='left', padx=5)
         self.entry_numb.pack(side='right', padx=15)
+        self.entry_numb.insert(0, '(Enter = Choose)')
         self.frame_numb.pack(anchor='n', pady=15)
 
         self.frame_sco1 = Frame(self.window)
