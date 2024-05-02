@@ -8,6 +8,7 @@ class Gui:
     templist = []
     tempval = 0
     entry_sco = []
+    frame_sco = []
 
     def __init__(self, window):
         # Construct initial window
@@ -77,14 +78,22 @@ class Gui:
         self.entry_sco4.bind("<FocusOut>", self.reveal)
 
     def reveal(self, event):
+        self.frame_sco = [self.frame_sco1, self.frame_sco2, self.frame_sco3, self.frame_sco4]
         self.label_butt.forget()
         try:
             if self.entry_numb.get().strip():
                 self.numb = int(self.entry_numb.get().strip())
                 if self.numb not in range(1, 5):
                     raise ValueError
-
                 self.frame_butt.forget()
+
+                for i in range(4):
+                    if self.numb >= i:
+                        self.frame_sco[i].pack()
+                    else:
+                        self.frame_sco[i].pack_forget()
+
+
                 if self.numb >= 1:
                     self.frame_sco1.pack()
                 else:
