@@ -70,41 +70,59 @@ class Gui:
         self.entry_numb.bind("<Return>", self.reveal)
 
     def reveal(self, event):
-        self.frame_butt.pack_forget()
-        if self.entry_numb.get().strip():
-            try:
+        self.label_butt.forget()
+        try:
+            if self.entry_numb.get().strip():
                 self.numb = int(self.entry_numb.get().strip())
                 if self.numb > 4 or self.numb < 1:
                     raise ValueError
                 else:
                     if self.numb >= 1:
                         self.frame_sco1.pack()
+                        self.frame_butt.forget()
                     else:
                         self.frame_sco1.pack_forget()
                     if self.numb >= 2:
                         self.frame_sco2.pack()
+                        self.frame_butt.forget()
                     else:
                         self.frame_sco2.pack_forget()
                     if self.numb >= 3:
                         self.frame_sco3.pack()
+                        self.frame_butt.forget()
                     else:
                         self.frame_sco3.pack_forget()
                     if self.numb == 4:
                         self.frame_sco4.pack()
+                        self.frame_butt.forget()
                     else:
                         self.frame_sco4.pack_forget()
+
+                    self.butt_submit.pack()
                     self.frame_butt.pack()
-            except ValueError:
-                self.label_butt.pack()
-                self.label_butt.config(text='Please Enter Valid Integer (1-4)', fg='orange')
+            else:
+                raise ValueError
+
+        except ValueError:
+            self.frame_sco1.pack_forget()
+            self.frame_sco2.pack_forget()
+            self.frame_sco3.pack_forget()
+            self.frame_sco4.pack_forget()
+            self.butt_submit.pack_forget()
+
+            self.frame_butt.pack()
+            self.label_butt.pack()
+            self.label_butt.config(text='Please Enter Valid Integer (1-4)', fg='blue')
+
 
     def collect_data(self):
         self.templist = []
         self.tempval = 0
-        self.reveal(Event)
         self.label_butt.pack_forget()
 
         try:
+            self.reveal(Event)
+
             if self.numb >= 1:
                 self.tempval = float(self.entry_sco1.get().strip())
                 if self.tempval < 0 or self.tempval > 100:
@@ -144,8 +162,11 @@ class Gui:
         if self.entry_name.get().strip():
             logic.survey(self.entry_name.get().strip(), self.templist)
             self.label_butt.pack()
-            self.label_butt.config(text='Submitted', fg='blue')
+            self.label_butt.config(text='Submitted', fg='green')
             self.refresh_boxes()
+        else:
+            self.label_butt.pack()
+            self.label_butt.config(text='Please Enter Valid Name', fg='blue')
 
     def refresh_boxes(self):
         self.entry_name.delete("0", "end")
