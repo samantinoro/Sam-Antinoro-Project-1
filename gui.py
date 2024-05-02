@@ -95,7 +95,8 @@ class Gui:
                         self.frame_sco4.pack_forget()
                     self.frame_butt.pack()
             except ValueError:
-                print('please enter real number')
+                self.label_butt.pack()
+                self.label_butt.config(text='Please Enter Valid Integer (1-4)', bg='orange')
 
     def collect_data(self):
         self.templist = []
@@ -137,13 +138,13 @@ class Gui:
 
         except ValueError:
             self.label_butt.pack()
-            self.label_butt.config(text='Please Enter Valid Scores')
+            self.label_butt.config(text='Please Enter Valid Scores', bg='red')
 
     def submit_data(self):
         if self.entry_name.get().strip():
             logic.survey(self.entry_name.get().strip(), self.templist)
-            self.label_butt.config(text='Submitted')
-            self.frame_butt.pack()
+            self.label_butt.pack()
+            self.label_butt.config(text='Submitted', fg='blue')
             self.refresh_boxes()
 
     def refresh_boxes(self):

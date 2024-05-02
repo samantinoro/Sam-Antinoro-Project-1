@@ -55,11 +55,11 @@ def survey(name, scorlist):
     while len(liste) < 5:
         liste.append(0)
     liste.append(average)
-    liste.append(grade)
+    #liste.append(grade)
 
     if not os.path.isfile('output.csv'):
         with open('output.csv', 'w', newline='') as csvfile:
-            csv.writer(csvfile).writerow(['Name', 'Score 1', 'Score 2', 'Score 3', 'Score 4', 'Average', 'Grade'])
+            csv.writer(csvfile).writerow(['Name', 'Score 1', 'Score 2', 'Score 3', 'Score 4', 'Average'])
         csvfile.close()
     if os.path.isfile('output.csv'):
         with open('output.csv', 'a', newline='') as csvfile:
