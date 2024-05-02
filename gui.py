@@ -96,7 +96,7 @@ class Gui:
                     self.frame_butt.pack()
             except ValueError:
                 self.label_butt.pack()
-                self.label_butt.config(text='Please Enter Valid Integer (1-4)', bg='orange')
+                self.label_butt.config(text='Please Enter Valid Integer (1-4)', fg='orange')
 
     def collect_data(self):
         self.templist = []
@@ -138,7 +138,7 @@ class Gui:
 
         except ValueError:
             self.label_butt.pack()
-            self.label_butt.config(text='Please Enter Valid Scores', bg='red')
+            self.label_butt.config(text='Please Enter Valid Scores', fg='red')
 
     def submit_data(self):
         if self.entry_name.get().strip():
