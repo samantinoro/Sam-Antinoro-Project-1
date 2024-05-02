@@ -2,17 +2,12 @@
 import csv
 import os.path
 
-
-def check_stats(scores):
-    av = 0
-    top = 0
-    for i in scores:
-        av += float(i)
-        if float(i) >= float(top):
-            top = i
-    return (av / len(scores)), top
-
-
+'''
+Finds average letter-grade based on average scores and top score 
+:score: Average score
+:top: The Highest Score
+:return: returns the letter grade based on calculations
+'''
 def check_grade(score, top):
     markoff = float(top) - float(score)
     if markoff <= 10:
@@ -27,35 +22,40 @@ def check_grade(score, top):
         grade = 'F'
     return grade
 
+'''
+Finds average of student scores and highest score
+:scores: the list of scores taken from survey()
+:return: The average of the scores as well as top score
+'''
+def check_stats(scores):
+    av = 0
+    top = 0
+    for i in scores:
+        av += float(i)
+        if float(i) >= float(top):
+            top = i
+    return (av / len(scores)), top
 
-def scores_get(num_stud):
-    scores = input(f'Enter {num_stud} score(s): ')
-    scorlist = scores.split()
 
-    for i in scorlist:
-        if not i.isdigit():
-            scorlist.remove(i)
-
-    while len(scorlist) < num_stud:
-        scorlist = scores_get(num_stud)
-    for i in range(len(scorlist) - num_stud):
-        scorlist.pop()
-    return scorlist
-
-
+'''
+Takes data from gui file and uses it to get average of scores
+:name: name of the student entered by user in gui
+:scorlist: list of scores entered by user in gui
+This function has no return but writes /appends student score data to 'output.csv'
+'''
 def survey(name, scorlist):
     liste = []
     stats = check_stats(scorlist)
     average = float(f'{stats[0]:.2f}')
-    # top = stats[1]
-    # grade = check_grade(average, top)
+    top = stats[1]
+    grade = check_grade(average, top)
 
     liste.append(name)
     liste += scorlist
     while len(liste) < 5:
         liste.append(0)
     liste.append(average)
-    # liste.append(grade)
+    liste.append(grade)
 
     if not os.path.isfile('output.csv'):
         with open('output.csv', 'w', newline='') as csvfile:

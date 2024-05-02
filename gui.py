@@ -4,13 +4,16 @@ import logic
 
 
 class Gui:
-    numb = 0
-    tempval = 0
-    templist = []
-    frame_sco = []
-    entry_sco = []
+    # Variables to help calculation
+    numb: int = 0
+    tempval: float = 0
+    # Variables to prevent code redundancy
+    templist: list = []
+    frame_sco: list = []
+    entry_sco: list = []
 
-    def __init__(self, window):
+    # Defines Gui instance variables to Set up UI
+    def __init__(self, window) -> None:
         # Construct initial window
         self.window = window
         self.frame_shape = Frame(self.window)
@@ -30,6 +33,7 @@ class Gui:
         self.entry_numb.insert(0, '(Enter = Choose)')
         self.frame_numb.pack(anchor='n', pady=15)
 
+        # Set up first input box and label, invisible on startup
         self.frame_sco1 = Frame(self.window)
         self.label_sco1 = Label(self.frame_sco1, font=('Ariel', 10), text=f'{"Score 1:": >15}')
         self.entry_sco1 = Entry(self.frame_sco1, width=20)
@@ -38,6 +42,7 @@ class Gui:
         self.frame_sco1.pack(anchor='n', pady=8)
         self.frame_sco1.pack_forget()
 
+        # Second input box and label, invisible on startup
         self.frame_sco2 = Frame(self.window)
         self.label_sco2 = Label(self.frame_sco2, font=('Ariel', 10), text=f'{"Score 2:": >15}')
         self.entry_sco2 = Entry(self.frame_sco2, width=15)
@@ -46,6 +51,7 @@ class Gui:
         self.frame_sco2.pack(anchor='n', pady=8)
         self.frame_sco2.pack_forget()
 
+        # Third input box and label, invisible on startup
         self.frame_sco3 = Frame(self.window)
         self.label_sco3 = Label(self.frame_sco3, font=('Ariel', 10), text=f'{"Score 3:": >15}')
         self.entry_sco3 = Entry(self.frame_sco3, width=15)
@@ -54,6 +60,7 @@ class Gui:
         self.frame_sco3.pack(anchor='n', pady=8)
         self.frame_sco3.pack_forget()
 
+        # Fourth input box and label, invisible on startup
         self.frame_sco4 = Frame(self.window)
         self.label_sco4 = Label(self.frame_sco4, font=('Ariel', 10), text=f'{"Score 4:": >15}')
         self.entry_sco4 = Entry(self.frame_sco4, width=15)
@@ -62,6 +69,7 @@ class Gui:
         self.frame_sco4.pack(anchor='n', pady=8)
         self.frame_sco4.pack_forget()
 
+        # Set up Submit Button and Feedback label, Invisible on startup
         self.frame_butt = Frame(self.window)
         self.butt_submit = Button(self.frame_butt, text='SUBMIT', command=self.collect_data)
         self.label_butt = Label(self.frame_butt, font=('Ariel', 8), text='')
@@ -70,6 +78,7 @@ class Gui:
         self.frame_butt.pack(anchor='n', pady=30)
         self.frame_butt.pack_forget()
 
+        # Keybinds to check entry_num whenever 'enter' / clicks off textbox
         self.entry_numb.bind("<Return>", self.reveal)
         self.entry_numb.bind("<FocusOut>", self.reveal)
         self.entry_sco1.bind("<FocusOut>", self.reveal)
@@ -77,9 +86,15 @@ class Gui:
         self.entry_sco3.bind("<FocusOut>", self.reveal)
         self.entry_sco4.bind("<FocusOut>", self.reveal)
 
-    def reveal(self, event):
-        self.frame_sco = [self.frame_sco1, self.frame_sco2, self.frame_sco3, self.frame_sco4]
-        self.entry_sco = [self.entry_sco1, self.entry_sco2, self.entry_sco3, self.entry_sco4]
+    '''
+    Evaluates entry inside entry_num, reveals given number of score-frames (boxes and labels)
+    :self: all of the class and instance variables
+    :frame_sco: and :entry_sco: used to loop through ui items to prevent redundant code
+    This method does not return anything, but results in either visible or invisible frames
+    '''
+    def reveal(self, event) -> None:
+        self.frame_sco: list = [self.frame_sco1, self.frame_sco2, self.frame_sco3, self.frame_sco4]
+        self.entry_sco: list = [self.entry_sco1, self.entry_sco2, self.entry_sco3, self.entry_sco4]
         self.label_butt.forget()
 
         try:
@@ -110,9 +125,16 @@ class Gui:
             self.label_butt.pack()
             self.label_butt.config(text='Please Enter Valid Integer (1-4)', fg='blue')
 
-    def collect_data(self):
-        self.templist = []
-        self.tempval = 0
+    '''
+    Evaluates entries in score entry boxes
+    :self: all of the class and instance variables
+    :entry_sco: used to loop through ui items to prevent redundant code
+    This method does not return anything, but forwards entries to submit_data if there are not errors
+    '''
+    def collect_data(self) -> None:
+        self.templist: list = []
+        self.tempval: float = 0
+        self.entry_sco: list = [self.entry_sco1, self.entry_sco2, self.entry_sco3, self.entry_sco4]
         self.label_butt.pack_forget()
 
         try:
@@ -129,7 +151,12 @@ class Gui:
             self.label_butt.pack()
             self.label_butt.config(text='Please Enter Valid Scores', fg='red')
 
-    def submit_data(self):
+    '''
+    Takes data from entry boxes and sends it through logic.py
+    :self: all of the class and instance variables
+    This method does not return anything, but logic.py edits a csv file
+    '''
+    def submit_data(self) -> None:
         if self.entry_name.get().strip():
             logic.survey(self.entry_name.get().strip(), self.templist)
             self.label_butt.pack()
@@ -139,9 +166,14 @@ class Gui:
             self.label_butt.pack()
             self.label_butt.config(text='Please Enter Valid Name', fg='blue')
 
-    def refresh_boxes(self):
+    '''
+    Clears all entry boxes and submission status label. Fills entry_num with instructions
+    :self: all of the class and instance variables
+    This method does not return anything
+    '''
+    def refresh_boxes(self) -> None:
         self.entry_name.delete("0", "end")
         self.entry_numb.delete("0", "end")
-        self.entry_numb.insert(0, '(Tab = Proceed)')
+        self.entry_numb.insert("0", '(Tab = Proceed)')
         for i in range(4):
             self.entry_sco[i].delete('0', 'end')
