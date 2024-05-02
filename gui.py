@@ -5,8 +5,8 @@ import logic
 
 class Gui:
     numb = 0
-    templist = []
     tempval = 0
+    templist = []
     entry_sco = []
     frame_sco = []
 
@@ -19,23 +19,23 @@ class Gui:
         self.entry_name = Entry(self.frame_shape, width=15)
         self.label_title.pack(side='top', fill='x', pady='10')
         self.label_name.pack(side='left', padx=5)
-        self.entry_name.pack(side='right', padx=15)
+        self.entry_name.pack(side='right', padx=12)
         self.frame_shape.pack(anchor='n')
 
         self.frame_numb = Frame(self.window)
         self.label_numb = Label(self.frame_numb, font=('Ariel', 10), text=f'{"No of Attempts: ": <20}')
         self.entry_numb = Entry(self.frame_numb, width=15)
         self.label_numb.pack(side='left', padx=5)
-        self.entry_numb.pack(side='right', padx=15)
+        self.entry_numb.pack(side='right', padx=14)
         self.entry_numb.insert(0, '(Enter = Choose)')
         self.frame_numb.pack(anchor='n', pady=15)
 
         self.frame_sco1 = Frame(self.window)
         self.label_sco1 = Label(self.frame_sco1, font=('Ariel', 10), text=f'{"Score 1:": >15}')
-        self.entry_sco1 = Entry(self.frame_sco1, width=15)
+        self.entry_sco1 = Entry(self.frame_sco1, width=20)
         self.label_sco1.pack(side='left', padx=20, fill='both')
         self.entry_sco1.pack(side='right', padx=20, fill='both')
-        self.frame_sco1.pack(anchor='n', pady=5)
+        self.frame_sco1.pack(anchor='n', pady=8)
         self.frame_sco1.pack_forget()
 
         self.frame_sco2 = Frame(self.window)
@@ -43,7 +43,7 @@ class Gui:
         self.entry_sco2 = Entry(self.frame_sco2, width=15)
         self.label_sco2.pack(side='left', padx=20, fill='both')
         self.entry_sco2.pack(side='right', padx=20, fill='both')
-        self.frame_sco2.pack(anchor='n', pady=5)
+        self.frame_sco2.pack(anchor='n', pady=8)
         self.frame_sco2.pack_forget()
 
         self.frame_sco3 = Frame(self.window)
@@ -51,7 +51,7 @@ class Gui:
         self.entry_sco3 = Entry(self.frame_sco3, width=15)
         self.label_sco3.pack(side='left', padx=20, fill='both')
         self.entry_sco3.pack(side='right', padx=20, fill='both')
-        self.frame_sco3.pack(anchor='n', pady=5)
+        self.frame_sco3.pack(anchor='n', pady=8)
         self.frame_sco3.pack_forget()
 
         self.frame_sco4 = Frame(self.window)
@@ -59,7 +59,7 @@ class Gui:
         self.entry_sco4 = Entry(self.frame_sco4, width=15)
         self.label_sco4.pack(side='left', padx=20, fill='both')
         self.entry_sco4.pack(side='right', padx=20, fill='both')
-        self.frame_sco4.pack(anchor='n', pady=5)
+        self.frame_sco4.pack(anchor='n', pady=8)
         self.frame_sco4.pack_forget()
 
         self.frame_butt = Frame(self.window)
@@ -67,7 +67,7 @@ class Gui:
         self.label_butt = Label(self.frame_butt, font=('Ariel', 8), text='')
         self.butt_submit.pack(anchor='n', pady=15)
         self.label_butt.pack(anchor='s')
-        self.frame_butt.pack(anchor='n', pady=20)
+        self.frame_butt.pack(anchor='n', pady=30)
         self.frame_butt.pack_forget()
 
         self.entry_numb.bind("<Return>", self.reveal)
@@ -79,6 +79,7 @@ class Gui:
 
     def reveal(self, event):
         self.frame_sco = [self.frame_sco1, self.frame_sco2, self.frame_sco3, self.frame_sco4]
+        self.entry_sco = [self.entry_sco1, self.entry_sco2, self.entry_sco3, self.entry_sco4]
         self.label_butt.forget()
         try:
             if self.entry_numb.get().strip():
@@ -87,32 +88,11 @@ class Gui:
                     raise ValueError
                 self.frame_butt.forget()
 
-                for i in range(4):
-                    if self.numb >= i:
-                        self.frame_sco[i].pack()
+                for i in range(4):  # Iterate over indices 0 to 3
+                    if self.numb > i:
+                        self.frame_sco[i].pack()  # Access the frame using index i
                     else:
                         self.frame_sco[i].pack_forget()
-
-
-                if self.numb >= 1:
-                    self.frame_sco1.pack()
-                else:
-                    self.frame_sco1.pack_forget()
-
-                if self.numb >= 2:
-                    self.frame_sco2.pack()
-                else:
-                    self.frame_sco2.pack_forget()
-
-                if self.numb >= 3:
-                    self.frame_sco3.pack()
-                else:
-                    self.frame_sco3.pack_forget()
-
-                if self.numb == 4:
-                    self.frame_sco4.pack()
-                else:
-                    self.frame_sco4.pack_forget()
 
                 self.butt_submit.pack()
                 self.frame_butt.pack()
@@ -120,16 +100,11 @@ class Gui:
                 raise ValueError
 
         except ValueError:
-            self.entry_sco1.delete('0', 'end')
-            self.frame_sco1.pack_forget()
-            self.entry_sco2.delete('0', 'end')
-            self.frame_sco2.pack_forget()
-            self.entry_sco3.delete('0', 'end')
-            self.frame_sco3.pack_forget()
-            self.entry_sco4.delete('0', 'end')
-            self.frame_sco4.pack_forget()
-            self.butt_submit.pack_forget()
+            for i in range(4):
+                self.entry_sco[i].delete('0', 'end')
+                self.frame_sco[i].pack_forget()
 
+            self.butt_submit.pack_forget()
             self.frame_butt.pack()
             self.label_butt.pack()
             self.label_butt.config(text='Please Enter Valid Integer (1-4)', fg='blue')
@@ -167,7 +142,6 @@ class Gui:
     def refresh_boxes(self):
         self.entry_name.delete("0", "end")
         self.entry_numb.delete("0", "end")
-        self.entry_sco1.delete("0", "end")
-        self.entry_sco2.delete("0", "end")
-        self.entry_sco3.delete("0", "end")
-        self.entry_sco4.delete("0", "end")
+        self.entry_numb.insert(0, '(Tab = Proceed)')
+        for i in range(4):
+            self.entry_sco[i].delete('0','end')
