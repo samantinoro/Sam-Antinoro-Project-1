@@ -7,8 +7,8 @@ class Gui:
     numb = 0
     tempval = 0
     templist = []
-    entry_sco = []
     frame_sco = []
+    entry_sco = []
 
     def __init__(self, window):
         # Construct initial window
@@ -81,6 +81,7 @@ class Gui:
         self.frame_sco = [self.frame_sco1, self.frame_sco2, self.frame_sco3, self.frame_sco4]
         self.entry_sco = [self.entry_sco1, self.entry_sco2, self.entry_sco3, self.entry_sco4]
         self.label_butt.forget()
+
         try:
             if self.entry_numb.get().strip():
                 self.numb = int(self.entry_numb.get().strip())
@@ -112,7 +113,6 @@ class Gui:
     def collect_data(self):
         self.templist = []
         self.tempval = 0
-        self.entry_sco = [self.entry_sco1, self.entry_sco2, self.entry_sco3, self.entry_sco4]
         self.label_butt.pack_forget()
 
         try:
@@ -144,4 +144,4 @@ class Gui:
         self.entry_numb.delete("0", "end")
         self.entry_numb.insert(0, '(Tab = Proceed)')
         for i in range(4):
-            self.entry_sco[i].delete('0','end')
+            self.entry_sco[i].delete('0', 'end')
