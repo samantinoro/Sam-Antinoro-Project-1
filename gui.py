@@ -115,7 +115,6 @@ class Gui:
             self.label_butt.pack()
             self.label_butt.config(text='Please Enter Valid Integer (1-4)', fg='blue')
 
-
     def collect_data(self):
         self.templist = []
         self.tempval = 0
