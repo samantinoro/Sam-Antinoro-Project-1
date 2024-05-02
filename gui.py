@@ -30,8 +30,15 @@ class Gui:
         self.entry_numb = Entry(self.frame_numb, width=15)
         self.label_numb.pack(side='left', padx=5)
         self.entry_numb.pack(side='right', padx=14)
-        self.entry_numb.insert(0, '(Enter = Choose)')
-        self.frame_numb.pack(anchor='n', pady=15)
+        self.frame_numb.pack(anchor='n')
+
+        self.frame_disc = Frame(self.window)
+        self.label_disc = Label(self.frame_disc, font=('Ariel', 6), text=f'Tab or Enter to Select Number')
+        self.label_blan = Label(self.frame_disc, font=('Ariel', 6), text='')
+        self.label_disc.pack(side='top')
+        self.label_blan.pack(side='bottom', pady=3)
+        self.frame_disc.pack(anchor='nw')
+
 
         # Set up first input box and label, invisible on startup
         self.frame_sco1 = Frame(self.window)
@@ -73,7 +80,7 @@ class Gui:
         self.frame_butt = Frame(self.window)
         self.butt_submit = Button(self.frame_butt, text='SUBMIT', command=self.collect_data)
         self.label_butt = Label(self.frame_butt, font=('Ariel', 8), text='')
-        self.butt_submit.pack(anchor='n', pady=15)
+        self.butt_submit.pack(anchor='n', pady=20)
         self.label_butt.pack(anchor='s')
         self.frame_butt.pack(anchor='n', pady=30)
         self.frame_butt.pack_forget()
@@ -174,6 +181,5 @@ class Gui:
     def refresh_boxes(self) -> None:
         self.entry_name.delete("0", "end")
         self.entry_numb.delete("0", "end")
-        self.entry_numb.insert("0", '(Tab = Proceed)')
         for i in range(4):
             self.entry_sco[i].delete('0', 'end')

@@ -9,14 +9,13 @@ Finds average letter-grade based on average scores and top score
 :return: returns the letter grade based on calculations
 '''
 def check_grade(score, top):
-    markoff = float(top) - float(score)
-    if markoff <= 10:
+    if score >= 90:
         grade = 'A'
-    elif markoff <= 20:
+    elif score >= 80:
         grade = 'B'
-    elif markoff <= 30:
+    elif score >= 70:
         grade = 'C'
-    elif markoff <= 40:
+    elif score >= 60:
         grade = 'D'
     else:
         grade = 'F'
