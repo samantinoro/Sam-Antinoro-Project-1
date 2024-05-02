@@ -7,6 +7,7 @@ class Gui:
     numb = 0
     templist = []
     tempval = 0
+    entry_sco = []
 
     def __init__(self, window):
         # Construct initial window
@@ -69,45 +70,54 @@ class Gui:
         self.frame_butt.pack_forget()
 
         self.entry_numb.bind("<Return>", self.reveal)
+        self.entry_numb.bind("<FocusOut>", self.reveal)
+        self.entry_sco1.bind("<FocusOut>", self.reveal)
+        self.entry_sco2.bind("<FocusOut>", self.reveal)
+        self.entry_sco3.bind("<FocusOut>", self.reveal)
+        self.entry_sco4.bind("<FocusOut>", self.reveal)
 
     def reveal(self, event):
         self.label_butt.forget()
         try:
             if self.entry_numb.get().strip():
                 self.numb = int(self.entry_numb.get().strip())
-                if self.numb > 4 or self.numb < 1:
+                if self.numb not in range(1, 5):
                     raise ValueError
-                else:
-                    if self.numb >= 1:
-                        self.frame_sco1.pack()
-                        self.frame_butt.forget()
-                    else:
-                        self.frame_sco1.pack_forget()
-                    if self.numb >= 2:
-                        self.frame_sco2.pack()
-                        self.frame_butt.forget()
-                    else:
-                        self.frame_sco2.pack_forget()
-                    if self.numb >= 3:
-                        self.frame_sco3.pack()
-                        self.frame_butt.forget()
-                    else:
-                        self.frame_sco3.pack_forget()
-                    if self.numb == 4:
-                        self.frame_sco4.pack()
-                        self.frame_butt.forget()
-                    else:
-                        self.frame_sco4.pack_forget()
 
-                    self.butt_submit.pack()
-                    self.frame_butt.pack()
+                self.frame_butt.forget()
+                if self.numb >= 1:
+                    self.frame_sco1.pack()
+                else:
+                    self.frame_sco1.pack_forget()
+
+                if self.numb >= 2:
+                    self.frame_sco2.pack()
+                else:
+                    self.frame_sco2.pack_forget()
+
+                if self.numb >= 3:
+                    self.frame_sco3.pack()
+                else:
+                    self.frame_sco3.pack_forget()
+
+                if self.numb == 4:
+                    self.frame_sco4.pack()
+                else:
+                    self.frame_sco4.pack_forget()
+
+                self.butt_submit.pack()
+                self.frame_butt.pack()
             else:
                 raise ValueError
 
         except ValueError:
+            self.entry_sco1.delete('0', 'end')
             self.frame_sco1.pack_forget()
+            self.entry_sco2.delete('0', 'end')
             self.frame_sco2.pack_forget()
+            self.entry_sco3.delete('0', 'end')
             self.frame_sco3.pack_forget()
+            self.entry_sco4.delete('0', 'end')
             self.frame_sco4.pack_forget()
             self.butt_submit.pack_forget()
 
@@ -118,38 +128,15 @@ class Gui:
     def collect_data(self):
         self.templist = []
         self.tempval = 0
+        self.entry_sco = [self.entry_sco1, self.entry_sco2, self.entry_sco3, self.entry_sco4]
         self.label_butt.pack_forget()
 
         try:
-            self.reveal(Event)
-
-            if self.numb >= 1:
-                self.tempval = float(self.entry_sco1.get().strip())
-                if self.tempval < 0 or self.tempval > 100:
+            for i in range(self.numb):
+                tempval = float(self.entry_sco[i].get().strip())
+                if tempval < 0 or tempval > 100:
                     raise ValueError
-                else:
-                    self.templist.append(self.tempval)
-
-            if self.numb >= 2:
-                self.tempval = float(self.entry_sco2.get().strip())
-                if self.tempval < 0 or self.tempval > 100:
-                    raise ValueError
-                else:
-                    self.templist.append(self.tempval)
-
-            if self.numb >= 3:
-                self.tempval = float(self.entry_sco3.get().strip())
-                if self.tempval < 0 or self.tempval > 100:
-                    raise ValueError
-                else:
-                    self.templist.append(self.tempval)
-
-            if self.numb == 4:
-                self.tempval = float(self.entry_sco4.get().strip())
-                if self.tempval < 0 or self.tempval > 100:
-                    raise ValueError
-                else:
-                    self.templist.append(self.tempval)
+                self.templist.append(tempval)
 
             self.label_butt.pack_forget()
             self.submit_data()
