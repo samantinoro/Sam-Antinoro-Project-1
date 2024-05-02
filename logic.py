@@ -47,15 +47,15 @@ def survey(name, scorlist):
     liste = []
     stats = check_stats(scorlist)
     average = float(f'{stats[0]:.2f}')
-    top = stats[1]
-    grade = check_grade(average, top)
+    # top = stats[1]
+    # grade = check_grade(average, top)
 
     liste.append(name)
     liste += scorlist
     while len(liste) < 5:
         liste.append(0)
     liste.append(average)
-    #liste.append(grade)
+    # liste.append(grade)
 
     if not os.path.isfile('output.csv'):
         with open('output.csv', 'w', newline='') as csvfile:
