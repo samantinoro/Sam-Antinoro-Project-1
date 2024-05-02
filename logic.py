@@ -22,6 +22,7 @@ def check_grade(score, top):
         grade = 'F'
     return grade
 
+
 '''
 Finds average of student scores and highest score
 :scores: the list of scores taken from survey()
@@ -50,6 +51,7 @@ def survey(name, scorlist):
     top = stats[1]
     grade = check_grade(average, top)
 
+    # Liste = [Name] + [Scores] + [Average]
     liste.append(name)
     liste += scorlist
     while len(liste) < 5:
@@ -57,6 +59,7 @@ def survey(name, scorlist):
     liste.append(average)
     liste.append(grade)
 
+    # Write scores data to 'output.csv'
     if not os.path.isfile('output.csv'):
         with open('output.csv', 'w', newline='') as csvfile:
             csv.writer(csvfile).writerow(['Name', 'Score 1', 'Score 2', 'Score 3', 'Score 4', 'Average'])
