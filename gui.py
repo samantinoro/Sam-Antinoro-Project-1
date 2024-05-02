@@ -12,7 +12,7 @@ class Gui:
         # Construct initial window
         self.window = window
         self.frame_shape = Frame(self.window)
-        self.label_title = Label(self.frame_shape, font=('Ariel', 11), text='STUDENT GRADE CALCULATOR')
+        self.label_title = Label(self.frame_shape, font=('Ariel', 11), text='STUDENT GRADE CATALOGUER')
         self.label_name = Label(self.frame_shape, font=('Ariel', 10), text=f'{"Student Name:": <20}')
         self.entry_name = Entry(self.frame_shape, width=15)
         self.label_title.pack(side='top', fill='x', pady='10')
