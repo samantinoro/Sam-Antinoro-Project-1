@@ -1,4 +1,7 @@
 # modified logic from lab 2
+import csv
+import os.path
+
 
 def check_stats(scores):
     av = 0
@@ -40,13 +43,24 @@ def scores_get(num_stud):
     return scorlist
 
 
-def survey(scorlist):
+def survey(name, scorlist):
+    liste = []
     stats = check_stats(scorlist)
-    average = stats[0]
+    average = float(f'{stats[0]:.2f}')
     top = stats[1]
-
-    for i in range(len(scorlist)):
-        grade = check_grade(float(scorlist[i]), top)
-        print(f'Student {i + 1} score is {scorlist[i]} and grade is {grade}')
     grade = check_grade(average, top)
-    print(f'The average score is {average:.2f}, a grade of {grade}')
+
+    liste.append(name)
+    liste += scorlist
+    while len(liste) < 5:
+        liste.append(0)
+    liste.append(average)
+    liste.append(grade)
+
+    if not os.path.isfile('output.csv'):
+        with open('output.csv', 'w', newline='') as csvfile:
+            csv.writer(csvfile).writerow(['Name', 'Score 1', 'Score 2', 'Score 3', 'Score 4', 'Average', 'Grade'])
+        csvfile.close()
+    if os.path.isfile('output.csv'):
+        with open('output.csv', 'a', newline='') as csvfile:
+            csv.writer(csvfile).writerow(liste)

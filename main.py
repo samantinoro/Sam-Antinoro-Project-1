@@ -6,7 +6,7 @@ from gui import *
 def main():
     window = Tk()
     window.title('Student Grade Calculator')
-    window.geometry('400x500')
+    window.geometry('250x325')
     window.resizable(False, False)
 
     Gui(window)
