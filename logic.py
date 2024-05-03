@@ -8,6 +8,8 @@ Finds average letter-grade based on average scores and top score
 :top: The Highest Score
 :return: returns the letter grade based on calculations
 '''
+
+
 def check_grade(score, top):
     if score >= 90:
         grade = 'A'
@@ -27,6 +29,8 @@ Finds average of student scores and highest score
 :scores: the list of scores taken from survey()
 :return: The average of the scores as well as top score
 '''
+
+
 def check_stats(scores):
     av = 0
     top = 0
@@ -43,6 +47,8 @@ Takes data from gui file and uses it to get average of scores
 :scorlist: list of scores entered by user in gui
 This function has no return but writes /appends student score data to 'output.csv'
 '''
+
+
 def survey(name, scorlist):
     liste = []
     stats = check_stats(scorlist)
