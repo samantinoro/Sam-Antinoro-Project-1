@@ -39,7 +39,6 @@ class Gui:
         self.label_blan.pack(side='bottom', pady=3)
         self.frame_disc.pack(anchor='nw')
 
-
         # Set up first input box and label, invisible on startup
         self.frame_sco1 = Frame(self.window)
         self.label_sco1 = Label(self.frame_sco1, font=('Ariel', 10), text=f'{"Score 1:": >15}')
