@@ -94,9 +94,7 @@ class Gui:
 
     '''
     Evaluates entry inside entry_num, reveals given number of score-frames (boxes and labels)
-    :self: all of the class and instance variables
-    :frame_sco: and :entry_sco: used to loop through ui items to prevent redundant code
-    This method does not return anything, but results in either visible or invisible frames
+    :return: This method does not return anything
     '''
     def reveal(self, event) -> None:
         self.frame_sco: list = [self.frame_sco1, self.frame_sco2, self.frame_sco3, self.frame_sco4]
@@ -132,10 +130,8 @@ class Gui:
             self.label_butt.config(text='Please Enter Valid Integer (1-4)', fg='blue')
 
     '''
-    Evaluates entries in score entry boxes
-    :self: all of the class and instance variables
-    :entry_sco: used to loop through ui items to prevent redundant code
-    This method does not return anything, but forwards entries to submit_data if there are not errors
+    Evaluates entries in score entry boxes (entry_sco)
+    :return: This method does not return anything, but forwards entries to submit_data if there are not errors
     '''
     def collect_data(self) -> None:
         self.templist: list = []
@@ -159,8 +155,7 @@ class Gui:
 
     '''
     Takes data from entry boxes and sends it through logic.py
-    :self: all of the class and instance variables
-    This method does not return anything, but logic.py edits a csv file
+    :return: This method does not return anything, but logic.py edits a csv file
     '''
     def submit_data(self) -> None:
         if self.entry_name.get().strip():
@@ -173,9 +168,8 @@ class Gui:
             self.label_butt.config(text='Please Enter Valid Name', fg='blue')
 
     '''
-    Clears all entry boxes and submission status label. Fills entry_num with instructions
-    :self: all of the class and instance variables
-    This method does not return anything
+    Clears all entry boxes and submission status label. Fills entry_num with instructions for player
+    :return: This method does not return anything
     '''
     def refresh_boxes(self) -> None:
         self.entry_name.delete("0", "end")
