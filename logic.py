@@ -5,12 +5,11 @@ import os.path
 '''
 Finds average letter-grade based on average scores and top score 
 :score: Average score
-:top: The Highest Score
 :return: returns the letter grade based on calculations
 '''
 
 
-def check_grade(score, top):
+def check_grade(score):
     if score >= 90:
         grade = 'A'
     elif score >= 80:
@@ -42,10 +41,10 @@ def check_stats(scores):
 
 
 '''
-Takes data from gui file and uses it to get average of scores
+Takes data from gui file and uses it to get average of scores. Writes / appends student score data to 'output.csv'
 :name: name of the student entered by user in gui
 :scorlist: list of scores entered by user in gui
-This function has no return but writes /appends student score data to 'output.csv'
+:return: This function has no return
 '''
 
 
