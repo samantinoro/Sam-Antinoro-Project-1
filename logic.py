@@ -52,8 +52,7 @@ def survey(name, scorlist):
     liste = []
     stats = check_stats(scorlist)
     average = float(f'{stats[0]:.2f}')
-    top = stats[1]
-    grade = check_grade(average, top)
+    grade = check_grade(average)
 
     # Liste = [Name] + [Scores] + [Average]
     liste.append(name)
